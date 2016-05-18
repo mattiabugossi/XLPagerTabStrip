@@ -26,6 +26,7 @@ import Foundation
 
 public class ButtonBarViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var roundedView: UIView!
     @IBOutlet public var imageView: UIImageView!
     @IBOutlet public lazy var label: UILabel! = { [unowned self] in
         let label = UILabel(frame: self.contentView.bounds)
@@ -42,4 +43,5 @@ public class ButtonBarViewCell: UICollectionViewCell {
             contentView.addSubview(label)
         }
     }
+
 }

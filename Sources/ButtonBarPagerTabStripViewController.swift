@@ -49,7 +49,7 @@ public struct ButtonBarPagerTabStripSettings {
         public var buttonBarRightContentInset: CGFloat?
 
         public var selectedBarBackgroundColor = UIColor.blackColor()
-        public var selectedBarHeight: CGFloat = 5
+        public var selectedBarHeight: CGFloat = 0
         
         public var buttonBarItemBackgroundColor: UIColor?
         public var buttonBarItemFont = UIFont.systemFontOfSize(18)
@@ -72,7 +72,7 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = self?.settings.style.buttonBarItemFont
-        label.text = childItemInfo.title
+        label.text = childItemInfo.title.uppercaseString
         let labelSize = label.intrinsicContentSize()
         return labelSize.width + (self?.settings.style.buttonBarItemLeftRightMargin ?? 8) * 2
     })
@@ -244,6 +244,14 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         
         let oldCell = buttonBarView.cellForItemAtIndexPath(NSIndexPath(forItem: currentIndex, inSection: 0)) as? ButtonBarViewCell
         let newCell = buttonBarView.cellForItemAtIndexPath(NSIndexPath(forItem: indexPath.item, inSection: 0)) as? ButtonBarViewCell
+        
+        newCell?.label.textColor = .whiteColor()
+        newCell?.roundedView.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? .blueColor()
+        
+        oldCell?.roundedView.backgroundColor = .clearColor()
+        oldCell?.label.textColor = settings.style.buttonBarItemTitleColor ?? oldCell?.label.textColor ?? .blackColor()
+        
+        
         if pagerBehaviour.isProgressiveIndicator {
             if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
                 changeCurrentIndexProgressive(oldCell: oldCell, newCell: newCell, progressPercentage: 1, changeCurrentIndex: true, animated: true)
@@ -254,6 +262,7 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
                 changeCurrentIndex(oldCell: oldCell, newCell: newCell, animated: true)
             }
         }
+        
         moveToViewControllerAtIndex(indexPath.item)
     }
     
@@ -270,16 +279,21 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         let childController = viewControllers[indexPath.item] as! IndicatorInfoProvider
         let indicatorInfo = childController.indicatorInfoForPagerTabStrip(self)
         
-        cell.label.text = indicatorInfo.title
-        cell.label.font = settings.style.buttonBarItemFont ?? cell.label.font
-        cell.label.textColor = settings.style.buttonBarItemTitleColor ?? cell.label.textColor
-        cell.contentView.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.contentView.backgroundColor
-        cell.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.backgroundColor
+        cell.label.text = indicatorInfo.title.uppercaseString
+        
         if let image = indicatorInfo.image {
             cell.imageView.image = image
         }
         if let highlightedImage = indicatorInfo.highlightedImage {
             cell.imageView.highlightedImage = highlightedImage
+        }
+        
+        if indexPath.item == currentIndex {
+            cell.label.textColor = .whiteColor()
+            cell.roundedView.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? .blueColor()
+        } else {
+            cell.roundedView.backgroundColor = .clearColor()
+            cell.label.textColor = settings.style.buttonBarItemTitleColor ?? cell.label.textColor
         }
 
         configureCell(cell, indicatorInfo: indicatorInfo)
@@ -297,6 +311,8 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         return cell
     }
     
+    
+    
     // MARK: - UIScrollViewDelegate
     
     public override func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
@@ -307,6 +323,7 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
     }
     
     public func configureCell(cell: ButtonBarViewCell, indicatorInfo: IndicatorInfo){
+        cell.roundedView.layer.cornerRadius = 0 // (cell.bounds.height - 10) / 2
     }
     
     private func calculateWidths() -> [CGFloat] {

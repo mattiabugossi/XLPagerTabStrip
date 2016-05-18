@@ -51,7 +51,21 @@ public class ButtonBarView: UICollectionView {
         }
     }
     var selectedBarAlignment: SelectedBarAlignment = .Center
-    var selectedIndex = 0
+    var selectedIndex = 0 {
+        didSet {
+            if oldValue != selectedIndex {
+                let oldCell = cellForItemAtIndexPath(NSIndexPath(forItem: oldValue, inSection: 0)) as? ButtonBarViewCell
+                let newCell = cellForItemAtIndexPath(NSIndexPath(forItem: selectedIndex, inSection: 0)) as? ButtonBarViewCell
+                
+                let coldDarkGrayColor = UIColor(red: 0.106, green: 0.153, blue: 0.200, alpha: 1.00) //AppColors.ColdGrayDark
+                
+                newCell?.label.textColor = .whiteColor()
+                newCell?.roundedView.backgroundColor = coldDarkGrayColor
+                oldCell?.roundedView.backgroundColor = .clearColor()
+                oldCell?.label.textColor = coldDarkGrayColor
+            }
+        }
+    }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -171,4 +185,5 @@ public class ButtonBarView: UICollectionView {
         selectedBarFrame.size.height = selectedBarHeight
         selectedBar.frame = selectedBarFrame
     }
+
 }

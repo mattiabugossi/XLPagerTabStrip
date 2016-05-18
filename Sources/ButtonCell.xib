@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,22 +11,31 @@
             <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BzT-Vi-Luj">
+                    <rect key="frame" x="5" y="7" width="70" height="26"/>
+                    <color key="backgroundColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bA-d3-zGi">
-                    <rect key="frame" x="18" y="10" width="45" height="21"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="22.5" y="10.5" width="36.5" height="20"/>
+                    <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="14"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="0.027450980390000001" green="0.72549019609999998" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="BzT-Vi-Luj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="7" id="04o-NB-J7R"/>
+                <constraint firstItem="BzT-Vi-Luj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="OaT-Pw-YLb"/>
                 <constraint firstAttribute="centerX" secondItem="4bA-d3-zGi" secondAttribute="centerX" id="kcH-EZ-rRx"/>
                 <constraint firstAttribute="centerY" secondItem="4bA-d3-zGi" secondAttribute="centerY" id="lcE-iT-kgq"/>
+                <constraint firstAttribute="bottom" secondItem="BzT-Vi-Luj" secondAttribute="bottom" constant="7" id="mQc-wc-Yii"/>
+                <constraint firstAttribute="trailing" secondItem="BzT-Vi-Luj" secondAttribute="trailing" constant="5" id="wE8-Eh-gLh"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="label" destination="4bA-d3-zGi" id="Ckx-bG-ZhP"/>
+                <outlet property="roundedView" destination="BzT-Vi-Luj" id="XFr-cj-BAs"/>
             </connections>
             <point key="canvasLocation" x="304" y="552"/>
         </view>
